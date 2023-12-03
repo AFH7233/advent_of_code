@@ -18,7 +18,6 @@ int get_number(char line[1], size_t length, trie_node normal[1]);
 trie_node* insert_word(char* word, size_t length, int value, trie_node* root);
 trie_node* delete_trie(trie_node* root);
 trie_node* create_trie_node(void);
-int find_number_in_trie(char line[1], size_t length, trie_node node[1], int start);
 
 int main(int argc, char *argv[]){
     if(argc<2){
@@ -108,21 +107,6 @@ trie_node* insert_word(char* word, size_t length, int value, trie_node* root){
     return root;
 }
 
-int find_number_in_trie(char line[1], size_t length, trie_node node[1], int start){
-    if(start >= length){
-        return 0;
-    } else if(node->is_terminal){
-        return node->value;
-    }
-
-    int index = line[start] - 'a';
-    trie_node* current = node->children[index];
-    if(current != NULL){
-        return find_number_in_trie(line, length, current, start+1);
-    } 
-    return 0;
-}
-
 int get_number(char line[1], size_t length, trie_node normal[1]){
     int* num = calloc(length, sizeof(int));
     for(size_t i=0;i<length;i++){
@@ -130,12 +114,18 @@ int get_number(char line[1], size_t length, trie_node normal[1]){
         if('0' <= letter && letter <='9'){
             num[i] = letter - '0';
         } else {
-            int index = line[i] - 'a';
-            trie_node* current = normal->children[index];
-            if(current != NULL){
-                num[i] = find_number_in_trie(line, length, current, i+1);
-            } else {
-                num[i] = 0;
+            trie_node* current = normal;
+            for(size_t j=i; j<length; j++){
+                int index = line[j] - 'a';
+                current = current->children[index];
+                if(current == NULL){
+                    num[i] = 0;
+                    break;
+                }
+                if(current->is_terminal){
+                    num[i] = current->value;
+                    break;
+                }
             }
         }
     }
