@@ -2,23 +2,16 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-
-
 typedef struct gear {
     int num_a;
     int num_b;
 } gear;
-
 
 const int EMPTY = -1;
 const int GEAR =  -2;
 const int UNKNOWN = -3;
 const size_t MAX_STRING_LENGTH = 200;
 const size_t MAX_LINE = 1000;
-
-// This is enough for the problem and to save work
-// on creating some growing structure.
-const size_t MAX_ARRAY = 300;
 
 size_t str_length(char line[1], size_t max_string_szie);
 char* fill_row(char* line, size_t length, char* row);

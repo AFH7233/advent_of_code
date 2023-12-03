@@ -13,10 +13,6 @@ enum cell_type {
 const size_t MAX_STRING_LENGTH = 200;
 const size_t MAX_LINE = 1000;
 
-// This is enough for the problem and to save work
-// on creating some growing structure.
-const size_t MAX_ARRAY = 300;
-
 size_t str_length(char line[1], size_t max_string_szie);
 char* fill_row(char* line, size_t length, char* row);
 void explore_symbol(char** tools, enum cell_type** types, int i, int j, int max_i, int max_j);
