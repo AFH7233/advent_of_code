@@ -44,7 +44,7 @@ int main(int argc, char* argv[]){
     int** types = calloc(count, sizeof(int*)); 
 
     for(size_t i = 0; i < count; i++){
-        tools[i] = calloc(max, sizeof(char)); //One more to make it a string.
+        tools[i] = calloc(max, sizeof(char));
         types[i] = calloc(max, sizeof(int));
         for(size_t j = 0; j < max; j++ ){
             types[i][j] = UNKNOWN;
